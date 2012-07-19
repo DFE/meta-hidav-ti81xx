@@ -1,6 +1,6 @@
 PR_append = "+r23"
 
-COMPATIBLE_MACHINE = "hidav"
+COMPATIBLE_MACHINE = "hidav-ti81xx"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 

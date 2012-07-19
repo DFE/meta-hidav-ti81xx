@@ -1,5 +1,7 @@
 DESCRIPTION = "HidaV make bootable sd card with dev image"
 
+COMPATIBLE_MACHINE = "hidav-ti81xx"
+
 LICENSE = "MIT"
 
 PR = "r16"

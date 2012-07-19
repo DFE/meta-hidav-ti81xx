@@ -1,4 +1,4 @@
-COMPATIBLE_MACHINE = "hidav"
+COMPATIBLE_MACHINE = "hidav-ti81xx"
 
 DEPENDS += " lzop-native test-harness-native "
 
