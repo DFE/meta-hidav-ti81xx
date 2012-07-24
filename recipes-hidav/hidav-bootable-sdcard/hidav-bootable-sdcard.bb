@@ -4,7 +4,7 @@ COMPATIBLE_MACHINE = "hidav-ti81xx"
 
 LICENSE = "MIT"
 
-PR = "r16"
+PR = "r17"
 
 PACKAGES = " ${PN} "
 

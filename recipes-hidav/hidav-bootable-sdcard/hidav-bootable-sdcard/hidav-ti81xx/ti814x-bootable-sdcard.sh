@@ -28,6 +28,7 @@ umount ${DRIVE}1
 umount ${DRIVE}2
 
 set -e
+set -x
 
 dd if=/dev/zero of=$DRIVE bs=1024 count=1024
 
@@ -53,7 +54,7 @@ mkfs.ext4 -L "rootfs" ${DRIVE}2
 mkdir -p tmp_mnt
 mount ${1}2 tmp_mnt
 pushd tmp_mnt > /dev/null
-tar xjf ../hydraip-devimage-hidav.tar.bz2
+tar xjf ../hydraip-devimage-hidav-ti81xx.tar.bz2
 popd > /dev/null
 umount tmp_mnt
 rm -rf tmp_mnt
@@ -66,8 +67,8 @@ mount ${1}1 tmp_mnt
 cp _boot_ti814x/MLO tmp_mnt/
 cp _boot_ti814x/u-boot-2nd.sd tmp_mnt/
 cp _boot_ti814x/MLO.nand tmp_mnt/
-cp uImage-hidav.bin tmp_mnt/uImage
-cp hydraip-image-hidav.squashfs tmp_mnt/hidav-root-fs.squashfs
+cp uImage-hidav-ti81xx.bin tmp_mnt/uImage
+cp hydraip-image-hidav-ti81xx.squashfs tmp_mnt/hidav-root-fs.squashfs
 sync
 umount tmp_mnt || umount -l tmp_mnt
 rm -rf tmp_mnt
