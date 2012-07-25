@@ -28,7 +28,6 @@ umount ${DRIVE}1
 umount ${DRIVE}2
 
 set -e
-set -x
 
 dd if=/dev/zero of=$DRIVE bs=1024 count=1024
 
