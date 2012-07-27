@@ -1,0 +1,14 @@
+diff --git a/arch/arm/plat-omap/cpu-omap.c b/arch/arm/plat-omap/cpu-omap.c
+index 437848f..010bcde 100644
+--- a/arch/arm/plat-omap/cpu-omap.c
++++ b/arch/arm/plat-omap/cpu-omap.c
+@@ -33,8 +33,8 @@
+ 
+ #if defined(CONFIG_ARCH_OMAP3) && !defined(CONFIG_OMAP_PM_NONE)
+ #include <plat/omap-pm.h>
+-#include <plat/common.h>
+ #endif
++#include <plat/common.h>
+ #include <plat/omap_device.h>
+ 
+ #define VERY_HI_RATE	900000000
