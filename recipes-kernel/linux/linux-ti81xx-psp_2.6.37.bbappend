@@ -12,25 +12,23 @@ SRC_URI = "git://arago-project.org/git/projects/linux-omap3.git;protocol=git;tag
            file://0001-ti814x-added-code-for-disabling-the-least-significan.patch \
            file://defconfig \
            file://configs \
-           file://src/ \
-           file://tests/ \
 "
 
-SRC_URI_append = " git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs2.2-37;protocol=git;destsuffix=aufs;name=aufs;rev=c3fc5bd123a94fcfe9bb1aa2fd5f41b16ea7ac04 \
-                   file://hidav-flash-partition-settings-ti814x.patch \
-                   file://hidav-flash-partition-settings-ti816x.patch \
-                   file://btrfs-kobject-include.patch \ 
-                   file://mtd-blockrom-glue.patch \
-		   file://kernel-inverse-BTMODE12-fix.patch \
-		   file://marvell-phy-88E15xx-support.patch \
-		   file://ti81xx-pcie-interrupt-ack.patch \
-		   file://ti81xx-realtek-pcie-read-request-size.patch \
-		   file://ti81xx-realtek-rtl8168e-definition.patch \
-		   file://ti81xx-mdio-access-timeout.patch \
-                   file://hidav-cpu-omap-fix-common-h-include.diff \
+SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs2.2-37;protocol=git;destsuffix=aufs;name=aufs;rev=c3fc5bd123a94fcfe9bb1aa2fd5f41b16ea7ac04 \
+                    git://github.com/DFE/mtd-blockrom-ftl.git;protocol=git;destsuffix=mtd-blockrom-ftl;name=mtd-blockrom-ftl;rev=HEAD \
+                    file://hidav-flash-partition-settings-ti814x.patch \
+                    file://hidav-flash-partition-settings-ti816x.patch \
+                    file://btrfs-kobject-include.patch \ 
+                    file://kernel-inverse-BTMODE12-fix.patch \
+                    file://marvell-phy-88E15xx-support.patch \
+                    file://ti81xx-pcie-interrupt-ack.patch \
+                    file://ti81xx-realtek-pcie-read-request-size.patch \
+                    file://ti81xx-realtek-rtl8168e-definition.patch \
+                    file://ti81xx-mdio-access-timeout.patch \
+                    file://hidav-cpu-omap-fix-common-h-include.diff \
                    "
 
-MACHINE_KERNEL_PR = "r66"
+MACHINE_KERNEL_PR = "r67"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.
@@ -45,7 +43,8 @@ do_setup_additional_sources() {
   patch -p1 < ${WORKDIR}/aufs/proc_map.patch
   patch -p1 < ${WORKDIR}/aufs/aufs2-standalone.patch
 
-  cp ${WORKDIR}/src/src/drivers/mtd/blockrom.c ${S}/drivers/mtd
+  patch -p1 < ${WORKDIR}/mtd-blockrom-ftl/mtd-blockrom-glue.patch
+  cp ${WORKDIR}/mtd-blockrom-ftl/src/drivers/mtd/blockrom.c ${S}/drivers/mtd
 }
 addtask setup_additional_sources after do_patch before do_configure
 
@@ -62,8 +61,9 @@ addtask create_ti816x_conf after do_setup_additional_sources before do_configure
 do_make_check_blockrom() {
     # unit tests stage for HidaV blockrom kernel MTD FTL
     
-    cp ${WORKDIR}/src/src/drivers/mtd/blockrom.c ${WORKDIR}/tests/tests
-    cd ${WORKDIR}/tests/tests
+    cp ${WORKDIR}/mtd-blockrom-ftl/src/drivers/mtd/blockrom.c \
+            ${WORKDIR}/mtd-blockrom-ftl/tests
+    cd ${WORKDIR}/mtd-blockrom-ftl/tests
     oe_runmake clean
     oe_runmake
 }
