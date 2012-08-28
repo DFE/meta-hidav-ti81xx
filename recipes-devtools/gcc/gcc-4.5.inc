@@ -27,7 +27,7 @@ SRCREV = "184907"
 BRANCH = "gcc-4_5-branch"
 PR_append = "+svnr${SRCPV}"
 
-SRC_URI = "svn://gcc.gnu.org/svn/gcc/branches;module=${BRANCH};proto=http \
+SRC_URI = "svn://gcc.gnu.org/svn/gcc/branches;module=${BRANCH};protocol=http \
        file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch \
        file://100-uclibc-conf.patch \
        file://gcc-uclibc-locale-ctype_touplow_t.patch \
