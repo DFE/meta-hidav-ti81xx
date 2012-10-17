@@ -1,0 +1,49 @@
+From 680468c3d19c846621f2fef657abab9d3e4fa854 Mon Sep 17 00:00:00 2001
+From: Eik Binschek <binschek@dresearch-fe.de>
+Date: Wed, 17 Oct 2012 17:46:52 +0200
+Subject: [PATCH] u-boot: add ddr3 ram timings of rev2 hardware
+
+	rev2 hardware need other ddr3 ram timing settings.
+	this commit correct timings of ddr3 ram.
+
+Signed-off-by: Eik Binschek <binschek@dresearch-fe.de>
+---
+ arch/arm/include/asm/arch-ti81xx/ddr_defs_ti814x.h |   14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/include/asm/arch-ti81xx/ddr_defs_ti814x.h b/arch/arm/include/asm/arch-ti81xx/ddr_defs_ti814x.h
+index 19372b0..481aa96 100644
+--- a/arch/arm/include/asm/arch-ti81xx/ddr_defs_ti814x.h
++++ b/arch/arm/include/asm/arch-ti81xx/ddr_defs_ti814x.h
+@@ -177,9 +177,9 @@
+ #define	DDR2_PHY_CTRL_SLAVE_RATIO_CS0_DEFINE	0x80
+ 
+ /* TI814X DDR3 PHY CFG parameters   <emif0 : emif 1> */
+-#define DDR3_PHY_RD_DQS_CS0_DEFINE		((emif == 0) ? 0x30 : 0x30)
+-#define DDR3_PHY_WR_DQS_CS0_DEFINE		((emif == 0) ? 0x21 : 0x21)
+-#define DDR3_PHY_RD_DQS_GATE_CS0_DEFINE		((emif == 0) ? 0xC0 : 0xC0)
++#define DDR3_PHY_RD_DQS_CS0_DEFINE		((emif == 0) ? 0x34 : 0x34)
++#define DDR3_PHY_WR_DQS_CS0_DEFINE		((emif == 0) ? 0x6 : 0x6)
++#define DDR3_PHY_RD_DQS_GATE_CS0_DEFINE		((emif == 0) ? 0x6C : 0x6F)
+ #define DDR3_PHY_WR_DATA_CS0_DEFINE		((emif == 0) ? 0x44 : 0x44)
+ #define DDR3_PHY_CTRL_SLAVE_RATIO_CS0_DEFINE	0x80
+ 
+@@ -211,11 +211,11 @@
+ #else
+ /* TI814X DDR3 EMIF CFG Registers values 400MHz */
+ #define DDR3_EMIF_READ_LATENCY		0x00173209
+-#define DDR3_EMIF_TIM1			0x0AAAD4DB
+-#define DDR3_EMIF_TIM2			0x682F7FDA
+-#define DDR3_EMIF_TIM3			0x501F82BF
++#define DDR3_EMIF_TIM1			0x0AAAE51B
++#define DDR3_EMIF_TIM2			0x68437FDA
++#define DDR3_EMIF_TIM3			0x501F83FF
+ #define DDR3_EMIF_REF_CTRL		0x00000C30
+-#define DDR3_EMIF_SDRAM_CONFIG		0x61C011B2
++#define DDR3_EMIF_SDRAM_CONFIG		0x61C012B2
+ #define DDR3_EMIF_SDRAM_ZQCR		0x50074BE1
+ #endif
+ 
+-- 
+1.7.9.5
+
