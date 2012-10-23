@@ -1,4 +1,4 @@
-PR_append = "+r24"
+PR_append = "+r25"
 
 COMPATIBLE_MACHINE = "hidav-ti81xx"
 
@@ -12,7 +12,6 @@ SRCREV_pn-${PN}_ti814x = "2ec1a17817e422b9417289b91c027980b45c7d65"
 SRCREV_pn-${PN}_ti816x = "2ec1a17817e422b9417289b91c027980b45c7d65"
 
 SRC_URI_append = " file://hidav-uboot-default-settings.patch \
-                   file://hidav-fast-flash-settings.patch \
                    file://hidav-enable-icache.patch \
                    file://hidav-nand-do-not-use-bad_block_table.patch \
 		   file://u-boot-bootconfig-glue.patch \

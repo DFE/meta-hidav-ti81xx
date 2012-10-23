@@ -59,20 +59,6 @@ index 247c49e..4ea9431 100644
  }
  #endif /* !USE_HOSTCC */
  
-diff --git a/drivers/mtd/nand/ti81xx_nand.c b/drivers/mtd/nand/ti81xx_nand.c
-index 6fc94b1..b286c11 100644
---- a/drivers/mtd/nand/ti81xx_nand.c
-+++ b/drivers/mtd/nand/ti81xx_nand.c
-@@ -884,7 +884,8 @@ int board_nand_init(struct nand_chip *nand)
- 		nand->options |= NAND_BUSWIDTH_16;
- 	}
- 
--	nand->chip_delay = 100;
-+    /* tfm: datasheet of evm eval board's NAND says 25 us */
-+	nand->chip_delay = 25;
- 
- 	/* fallback ecc info, this will be overridden by 
- 	 * ti81xx_nand_switch_ecc() below to 1-bit h/w ecc
 diff --git a/include/configs/ti8148_evm.h b/include/configs/ti8148_evm.h
 index 33f7bea..f4bc7ff 100644
 --- a/include/configs/ti8148_evm.h
