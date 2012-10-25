@@ -51,13 +51,13 @@ index ca59575..b04b053 100644
      "bootnand=setenv verify no; setenv bootargs "\
 -                    "console=ttyO0,115200n8 rootwait root=${rootfs_device} ro rootfstype=squashfs mem=1024M earlyprink vram=50M ip=off noinitrd user_debug=255;" \
 +                    "console=ttyO0,115200n8 rootwait root=${rootfs_device} ro rootfstype=squashfs mem=1024M earlyprink vram=50M ip=off noinitrd user_debug=255 machine_name=${machine_name};" \
-                 "nboot 0x80007FC0 0 ${kernel_offset}; bootm;\0"
+                 "nandecc hw 2; nboot 0x80007FC0 0 ${kernel_offset}; bootm;\0"
  #else 
  # define BOOTNAND_CMD \
      "bootnand=setenv verify no; setenv bootargs "\
 -                    "console=ttyO0,115200n8 quiet rootwait root=${rootfs_device} ro rootfstype=squashfs mem=1024M earlyprink vram=50M ip=off noinitrd user_debug=255 systemd.log_target=kmsg;" \
 +                    "console=ttyO0,115200n8 quiet rootwait root=${rootfs_device} ro rootfstype=squashfs mem=1024M earlyprink vram=50M ip=off noinitrd user_debug=255 systemd.log_target=kmsg machine_name=${machine_name};" \
-                 "nboot 0x80007FC0 0 ${kernel_offset}; bootm;\0"
+                 "nandecc hw 2; nboot 0x80007FC0 0 ${kernel_offset}; bootm;\0"
  #endif
  
  # define CONFIG_EXTRA_ENV_SETTINGS \

@@ -1,21 +1,37 @@
+From 4dce720ee7192bed7e0636360a55efe30e31cc3c Mon Sep 17 00:00:00 2001
+From: Thilo Fromm <github@thilo-fromm.de>
+Date: Thu, 25 Oct 2012 11:18:41 +0200
+Subject: [PATCH 3/3] marvell phy 88E15xx support
+
+---
+ drivers/net/cpsw.c |   26 +++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
+
 diff --git a/drivers/net/cpsw.c b/drivers/net/cpsw.c
-index dba480e..f674095 100644
+index 49e0579..63aef4b 100644
 --- a/drivers/net/cpsw.c
 +++ b/drivers/net/cpsw.c
-@@ -839,6 +839,9 @@ static ssize_t cpsw_hw_stats_show(struct device *dev,
+@@ -927,6 +927,10 @@ static ssize_t cpsw_hw_stats_show(struct device *dev,
+ 
  DEVICE_ATTR(hw_stats, S_IRUGO, cpsw_hw_stats_show, NULL);
  
- #define PHY_CONFIG_REG	22
 +#define MARVELL_88E15xx               0x1410dd1
 +#define MARVELL_MII_PAGE2_MAC_CONTROL 21
 +#define MARVELL_MII_PAGE_ADDRESS      22
++
  static void cpsw_set_phy_config(struct cpsw_priv *priv, struct phy_device *phy)
  {
- 	struct cpsw_platform_data *pdata = priv->pdev->dev.platform_data;
-@@ -891,6 +894,26 @@ static void cpsw_set_phy_config(struct cpsw_priv *priv, struct phy_device *phy)
- 		val |= BIT(5);
- 		miibus->write(miibus, phy_addr, PHY_CONFIG_REG, val);
- 		tmp = miibus->read(miibus, phy_addr, PHY_CONFIG_REG);
+        struct cpsw_platform_data *pdata = priv->pdev->dev.platform_data;
+
+diff --git a/drivers/net/cpsw.c b/drivers/net/cpsw.c
+index 8d4c05a..49e0579 100644
+--- a/drivers/net/cpsw.c
++++ b/drivers/net/cpsw.c
+@@ -962,7 +962,27 @@ static void cpsw_set_phy_config(struct cpsw_priv *priv, struct phy_device *phy)
+ 		val |= BIT(9);
+ 		miibus->write(miibus, phy_addr, MII_CTRL1000, val);
+ 		tmp = miibus->read(miibus, phy_addr, MII_CTRL1000);
+-	}
 +	} else if (phy->phy_id == MARVELL_88E15xx) {
 +		/* This disables internally transmit clock delay */
 +		int timeout;
@@ -36,9 +52,10 @@ index dba480e..f674095 100644
 +		}
 +		if (!timeout)
 +			printk(KERN_ERR "Marvell phy addr %d BMCR reset failed.\n", phy_addr);
- 	}
++    }
  
- 	return;
+ 	val = miibus->read(miibus, phy_addr, MII_ADVERTISE);
+ 	val |= (ADVERTISE_10HALF | ADVERTISE_10FULL | \
 -- 
 1.7.9.5
 

@@ -6,7 +6,8 @@ RDEPENDS += " mtd-utils gawk busybox bootconfig "
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-TAG = "v2.6.37_TI814XPSP_04.01.00.06.patch2"
+#TAG = "v2.6.37_TI814XPSP_04.01.00.06.patch2"
+TAG = "v2.6.37_TI81XXPSP_04.04.00.02.patch1"
 
 SRC_URI = "git://arago-project.org/git/projects/linux-omap3.git;protocol=git;tag=${TAG} \
            file://0001-ti814x-added-code-for-disabling-the-least-significan.patch \
@@ -17,18 +18,15 @@ SRC_URI = "git://arago-project.org/git/projects/linux-omap3.git;protocol=git;tag
 SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs2.2-37;protocol=git;destsuffix=aufs;name=aufs;rev=c3fc5bd123a94fcfe9bb1aa2fd5f41b16ea7ac04 \
                     git://github.com/DFE/mtd-blockrom-ftl.git;protocol=git;destsuffix=mtd-blockrom-ftl;name=mtd-blockrom-ftl;rev=HEAD \
                     file://hidav-flash-partition-settings-ti814x.patch \
-                    file://hidav-flash-partition-settings-ti816x.patch \
                     file://btrfs-kobject-include.patch \ 
-                    file://kernel-inverse-BTMODE12-fix.patch \
                     file://marvell-phy-88E15xx-support.patch \
-                    file://ti81xx-pcie-interrupt-ack.patch \
                     file://ti81xx-realtek-pcie-read-request-size.patch \
                     file://ti81xx-realtek-rtl8168e-definition.patch \
                     file://ti81xx-mdio-access-timeout.patch \
                     file://hidav-cpu-omap-fix-common-h-include.diff \
                    "
 
-MACHINE_KERNEL_PR = "r67"
+MACHINE_KERNEL_PR = "r69"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.
