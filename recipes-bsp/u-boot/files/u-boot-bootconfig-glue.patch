@@ -4,6 +4,7 @@ Date: Fri, 11 May 2012 13:58:18 +0200
 Subject: [PATCH] u-boot: add boot-config read
 
 	Now boot config is used to switch root-fs-partition and kernel-patition.
+	use bootconfig with BCH8
 
 Signed-off-by: Eik Binschek <binschek@dresearch-fe.de>
 ---
@@ -12,17 +13,18 @@ diff --git a/common/main.c b/common/main.c
 index f7e7c1c..cd942d7 100644
 --- a/common/main.c
 +++ b/common/main.c
-@@ -44,6 +44,9 @@
+@@ -44,6 +44,10 @@
  DECLARE_GLOBAL_DATA_PTR;
  #endif
  
++#include <linux/mtd/nand.h>
 +#include <lowlevel.h>
 +#include <config.h>
 +
  /*
   * Board-specific Platform code can reimplement show_boot_progress () if needed
   */
-@@ -369,6 +372,72 @@ void main_loop (void)
+@@ -369,6 +372,73 @@ void main_loop (void)
  	update_tftp ();
  #endif /* CONFIG_UPDATE_TFTP */
 
@@ -35,6 +37,7 @@ index f7e7c1c..cd942d7 100644
 +        int ret = NULL;
 +        enum bt_ll_parttype which=kernel;  /* { kernel, rootfs }; */
 +
++        ti81xx_nand_switch_ecc(NAND_ECC_HW,2); /* use BCH8 */
 +        bc_ll_init( &bc , "/dev/mtd1" );
 +        btblock_test = bc_ll_get_current ( &bc, &block_index );
 +

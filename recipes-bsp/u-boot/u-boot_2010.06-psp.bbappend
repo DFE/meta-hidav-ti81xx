@@ -1,4 +1,4 @@
-PR_append = "+r26"
+PR_append = "+r27"
 
 COMPATIBLE_MACHINE = "hidav-ti81xx"
 
