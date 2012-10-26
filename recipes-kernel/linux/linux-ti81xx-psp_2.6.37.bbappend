@@ -26,7 +26,7 @@ SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs
                     file://hidav-cpu-omap-fix-common-h-include.diff \
                    "
 
-MACHINE_KERNEL_PR = "r69"
+MACHINE_KERNEL_PR = "r70"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.
