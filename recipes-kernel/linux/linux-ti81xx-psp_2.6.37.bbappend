@@ -24,9 +24,10 @@ SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs
                     file://ti81xx-realtek-rtl8168e-definition.patch \
                     file://ti81xx-mdio-access-timeout.patch \
                     file://hidav-cpu-omap-fix-common-h-include.diff \
+		    git://github.com/DFE/darmok.git;protocol=git;destsuffix=darmok;name=darmok;rev=HEAD \
                    "
 
-MACHINE_KERNEL_PR = "r71"
+MACHINE_KERNEL_PR = "r74"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.
@@ -43,6 +44,11 @@ do_setup_additional_sources() {
 
   patch -p1 < ${WORKDIR}/mtd-blockrom-ftl/mtd-blockrom-glue.patch
   cp ${WORKDIR}/mtd-blockrom-ftl/src/drivers/mtd/blockrom.c ${S}/drivers/mtd
+
+  mkdir -p ${S}/drivers/darmok
+  echo "patch -p1 < ${WORKDIR}/darmok/drbcc-kmod/drbcc-kmod-sources/bcc-in-kernel-tree.patch" >${S}/patch-darmok.sh
+  chmod 755 ${S}/patch-darmok.sh
+  cp ${WORKDIR}/darmok/drbcc-kmod/drbcc-kmod-sources/* ${S}/drivers/darmok
 }
 addtask setup_additional_sources after do_patch before do_configure
 
