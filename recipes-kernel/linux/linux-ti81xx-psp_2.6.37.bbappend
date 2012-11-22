@@ -24,10 +24,11 @@ SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs
                     file://ti81xx-realtek-rtl8168e-definition.patch \
                     file://ti81xx-mdio-access-timeout.patch \
                     file://hidav-cpu-omap-fix-common-h-include.diff \
+                    file://hidav-init-gpios.patch \
 		    git://github.com/DFE/darmok.git;protocol=git;destsuffix=darmok;name=darmok;rev=HEAD \
                    "
 
-MACHINE_KERNEL_PR = "r74"
+MACHINE_KERNEL_PR = "r75"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.

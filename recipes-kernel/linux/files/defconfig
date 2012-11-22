@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux/arm 2.6.37 Kernel Configuration
-# Fri Oct 26 16:32:09 2012
+# Thu Nov 22 14:24:37 2012
 #
 CONFIG_ARM=y
 CONFIG_SYS_SUPPORTS_APM_EMULATION=y
@@ -1377,7 +1377,7 @@ CONFIG_I2C_OMAP=y
 CONFIG_ARCH_REQUIRE_GPIOLIB=y
 CONFIG_GPIOLIB=y
 # CONFIG_DEBUG_GPIO is not set
-# CONFIG_GPIO_SYSFS is not set
+CONFIG_GPIO_SYSFS=y
 
 #
 # Memory mapped GPIO expanders:

@@ -1,0 +1,74 @@
+From 3de84de059b11225d63aba35d0ea31a84b6d1d63 Mon Sep 17 00:00:00 2001
+From: Mario Schuknecht <schuknecht@dresearch-fe.de>
+Date: Thu, 22 Nov 2012 14:08:12 +0100
+Subject: [PATCH] GPIOs: Init HidaV GPIOs
+
+Initialize HidaV specific GPIOs.
+
+Signed-off-by: Mario Schuknecht <schuknecht@dresearch-fe.de>
+---
+ arch/arm/mach-omap2/board-ti8148evm.c |   41 +++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/arch/arm/mach-omap2/board-ti8148evm.c b/arch/arm/mach-omap2/board-ti8148evm.c
+index 0f7597c..2c0a4d0 100644
+--- a/arch/arm/mach-omap2/board-ti8148evm.c
++++ b/arch/arm/mach-omap2/board-ti8148evm.c
+@@ -69,6 +69,18 @@ static struct omap_board_mux board_mux[] __initdata = {
+ #define board_mux     NULL
+ #endif
+ 
++static int machine_hidav = 1;
++
++static int __init machine_hidav_setup(char *str)
++{
++	if (!strncmp(str, "hidav", 5))
++		machine_hidav = 1;
++	else
++		machine_hidav = 0;
++	return 1;
++}
++__setup("machine_name=", machine_hidav_setup);
++
+ static struct omap2_hsmmc_info mmc[] = {
+ 	{
+ 		.mmc		= 1,
+@@ -842,6 +854,35 @@ static void __init ti8148_evm_init(void)
+ 
+ 	omap2_hsmmc_init(mmc);
+ 
++	/* hidav GPIO initialisation */
++	if(machine_hidav) {
++		int error;
++		/* IBIS UART */
++		omap_mux_init_signal("mlb_sig.uart2_rxd_mux1", 0);
++		omap_mux_init_signal("mlb_clk.uart2_txd_mux1", 0);
++		/* BCTRL UART */
++		omap_mux_init_signal("uart0_dtrn.uart1_txd_mux0", 0);
++		omap_mux_init_signal("uart0_rin.uart1_rxd_mux0", 0);
++		/* BCTRL signal host running */
++		omap_mux_init_signal("spi1_d1.gpio1_18_mux1", 0);
++		error = gpio_request(GPIO_TO_PIN(1, 18), "gpio1_18_mux1");
++		if (error < 0) {
++			printk("%s: failed to request GPIO for gpio1_18_mux1: %d\n"
++								, __func__, error);
++		}
++		gpio_export(GPIO_TO_PIN(1, 18), true);
++		gpio_direction_output(GPIO_TO_PIN(1, 18), 1);
++		/* BCTRL signal hdd usable */
++		omap_mux_init_signal("spi1_d0.gpio1_26_mux1", 
++						TI814X_PULL_UP | TI814X_INPUT_EN);
++		error = gpio_request(GPIO_TO_PIN(1, 26), "gpio1_26_mux1");
++		if (error < 0) {
++			printk("%s: failed to request GPIO for gpio1_26_mux1: %d\n"
++								, __func__, error);
++		}
++		gpio_export(GPIO_TO_PIN(1, 26), true);
++		gpio_direction_input(GPIO_TO_PIN(1, 26));
++	}
+ 	/* nand initialisation */
+ 	if (cpu_is_ti814x()) {
+ 		u32 *control_status = TI81XX_CTRL_REGADDR(0x40);
+-- 
+1.7.9.5
+
