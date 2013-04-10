@@ -16,7 +16,7 @@ SRC_URI = "git://arago-project.org/git/projects/linux-omap3.git;protocol=git;tag
 "
 
 SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs2.2-37;protocol=git;destsuffix=aufs;name=aufs;rev=c3fc5bd123a94fcfe9bb1aa2fd5f41b16ea7ac04 \
-                    git://github.com/DFE/mtd-blockrom-ftl.git;protocol=git;destsuffix=mtd-blockrom-ftl;name=mtd-blockrom-ftl;rev=HEAD \
+                    git://github.com/DFE/mtd-blockrom-ftl.git;protocol=git;destsuffix=mtd-blockrom-ftl;name=mtd-blockrom-ftl;rev=1880be5ad0f45ef323ac063875f49fbfbbde5d03 \
                     file://hidav-flash-partition-settings-ti814x.patch \
                     file://btrfs-kobject-include.patch \ 
                     file://marvell-phy-88E15xx-support.patch \
@@ -25,10 +25,10 @@ SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs
                     file://ti81xx-mdio-access-timeout.patch \
                     file://hidav-cpu-omap-fix-common-h-include.diff \
                     file://hidav-init-gpios.patch \
-		    git://github.com/DFE/darmok.git;protocol=git;destsuffix=darmok;name=darmok;rev=HEAD \
+                    git://github.com/DFE/darmok.git;protocol=git;destsuffix=darmok;name=darmok;tag=darmok_v0.1 \
                    "
 
-MACHINE_KERNEL_PR = "r76"
+MACHINE_KERNEL_PR = "r77"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.
