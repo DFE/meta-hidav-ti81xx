@@ -25,10 +25,10 @@ SRC_URI_append = "  git://git.c3sl.ufpr.br/aufs/aufs2-standalone.git;branch=aufs
                     file://ti81xx-mdio-access-timeout.patch \
                     file://hidav-cpu-omap-fix-common-h-include.diff \
                     file://hidav-init-gpios.patch \
-                    git://github.com/DFE/darmok.git;protocol=git;destsuffix=darmok;name=darmok;tag=darmok_v0.2 \
+                    git://github.com/DFE/darmok.git;protocol=git;destsuffix=darmok;name=darmok;tag=darmok_v0.3 \
                    "
 
-MACHINE_KERNEL_PR = "r77"
+MACHINE_KERNEL_PR = "r78"
 
 # this actually should be do_patch_append, but doing so triggers a syntax error in openembedded
 # so we insert it manually.
@@ -48,7 +48,7 @@ do_setup_additional_sources() {
 
   mkdir -p ${S}/drivers/darmok
   cp ${WORKDIR}/darmok/drbcc-kmod/drbcc-kmod-sources/* ${S}/drivers/darmok
-  patch -p1 < ${WORKDIR}/darmok/drbcc-kmod/drbcc-kmod-sources/bcc-in-kernel-tree.patch
+  patch -p1 < ${WORKDIR}/darmok/drbcc-kmod/drbcc-kmod-sources/linux-ti81xx_2.6.37.patch
 }
 addtask setup_additional_sources after do_patch before do_configure
 
